@@ -1,5 +1,5 @@
 # Projeto Oficina
-## Feito com objetivo de aplicar conhecimentos adquiridos
+## Somente para Aprendizado da Linguagem e Conceitos
 ### Linguagem C#
 - DotNetCore MVC / Razor  8.0
 - Postgresql 17
