@@ -1,4 +1,5 @@
 using Oficina.Components;
+using Serilog;
 
 namespace Oficina
 {
@@ -7,6 +8,21 @@ namespace Oficina
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            Directory.CreateDirectory("Logs");
+            
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File(
+                "Logs/oficina-.log",
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information
+            )
+            .CreateLogger();
+
+            builder.Host.UseSerilog();
+
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
