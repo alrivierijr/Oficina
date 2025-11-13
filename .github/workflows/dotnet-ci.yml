@@ -1,0 +1,34 @@
+name: Build e Teste - .NET 8
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1?? Faz checkout do código
+      - name: Obter código do repositório
+        uses: actions/checkout@v4
+
+      # 2?? Instala o .NET SDK (versão 8)
+      - name: Instalar .NET 8 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 3?? Restaura pacotes
+      - name: Restaurar dependências
+        run: dotnet restore
+
+      # 4?? Compila o projeto
+      - name: Compilar em modo Release
+        run: dotnet build --configuration Release --no-restore
+
+      # 5?? Executa os testes automatizados
+      - name: Executar testes (se houver)
+        run: dotnet test --no-build --verbosity normal
