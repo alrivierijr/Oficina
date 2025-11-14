@@ -1,5 +1,7 @@
 using Oficina.Components;
 using Serilog;
+using Microsoft.EntityFrameworkCore;
+using Oficina.Data;
 
 namespace Oficina
 {
@@ -22,6 +24,10 @@ namespace Oficina
             .CreateLogger();
 
             builder.Host.UseSerilog();
+
+            // J13112025 - Add DbContext com PostgreSQL
+            builder.Services.AddDbContext<AppDbContext>(Options =>
+            Options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
             // Add services to the container.
