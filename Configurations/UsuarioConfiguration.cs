@@ -12,23 +12,17 @@ namespace Oficina.Configurations
 
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.InclusaoData)
-                .IsRequired();
+            builder.Property(c => c.InclusaoData).IsRequired();
 
-            builder.Property(c => c.InclusaoUsuarioId)
-                .IsRequired();
+            builder.Property(c => c.InclusaoUsuarioId).IsRequired();
 
-            builder.Property(c => c.Nome)
-                .IsRequired()
-                .HasMaxLength(50);
+            builder.Property(c => c.Nome).IsRequired().HasMaxLength(50);
 
-            builder.Property(c => c.Email)
-                .IsRequired()
-                .HasMaxLength(40);
+            builder.HasIndex(c => c.Email).IsUnique();
 
-            builder.Property(c => c.Senha)
-                .IsRequired()
-                .HasMaxLength(20);
+            builder.Property(c => c.Email).IsRequired().HasMaxLength(40);
+
+            builder.Property(c => c.Senha).IsRequired().HasMaxLength(20);
 
         }
     }
