@@ -19,16 +19,13 @@ namespace Oficina
                 "Logs/oficina-.log",
                 rollingInterval: RollingInterval.Day,
                 retainedFileCountLimit: 7,
-                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Information
+                restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error
             )
             .CreateLogger();
 
             builder.Host.UseSerilog();
-
-            // J13112025 - Add DbContext com PostgreSQL
             builder.Services.AddDbContext<AppDbContext>(Options =>
             Options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
